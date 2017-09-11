@@ -8,10 +8,13 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iflytek.cloud.ErrorCode;
@@ -62,6 +65,17 @@ public class XFUtils extends LinearLayout {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.layout_xf, this);
         mResultText = (EditText) this.findViewById(R.id.iat_text);
+        mResultText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    //完成自己的事件
+                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return false;
+            }
+        });
         this.findViewById(R.id.iat_recognize).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
